@@ -4,7 +4,7 @@ menu_btn = '⚠️В меню⚠️'
 back_btn = '👈🏼Назад'
 continue_btn = 'Далее👉🏼'
 autor_btn = 'Автор'
-film_btn = 'ФИЛЬМ'
+film_btn = 'Фильм'
 serial_btn = 'Сериал'
 painter_btn = 'Художник'
 poet_btn = 'Поэт'
@@ -12,9 +12,10 @@ music_btn = 'Музыка'
 game_btn = 'Игра'
 color_btn = 'Цвет'
 book_btn = 'Книга'
-small_size_btn = '🎁Маленький📕'
-medium_size_btn = '🎁🎁Средний📕📕'
-big_size_btn = '🎁🎁🎁Большой📕📕📕'
+mini_size_btn = '🎁Мини📕'
+small_size_btn = '🎁🎁Маленький📕📕'
+medium_size_btn = '🎁🎁🎁Средний📕📕📕'
+big_size_btn = '🎁🎁🎁🎁Большой📕📕📕📕'
 return_btn = '👈🏼Вернуться в анкету'
 russia_btn = '🇷🇺Россия🇷🇺'
 other_country_btn = 'Другая страна❓'
@@ -29,8 +30,9 @@ faq_command = '/faq ❓'
 
 markup_for_commands = ReplyKeyboardMarkup(resize_keyboard=True)
 markup_for_commands.row(form_command)
+markup_for_commands.row(comment_command)
 markup_for_commands.row(about_command, links_command)
-markup_for_commands.row(comment_command, faq_command)
+
 
 markup_with_menu = ReplyKeyboardMarkup(resize_keyboard=True)
 markup_with_menu.row(menu_btn)
@@ -42,11 +44,13 @@ markup_for_choise_form.row(game_btn, color_btn, book_btn)
 markup_for_choise_form.row(back_btn, menu_btn, continue_btn)
 
 markup_for_sizes = ReplyKeyboardMarkup(resize_keyboard=True)
+markup_for_sizes.row(mini_size_btn)
 markup_for_sizes.row(small_size_btn)
 markup_for_sizes.row(medium_size_btn)
 markup_for_sizes.row(big_size_btn)
 
 markup_for_sizes_after_final = ReplyKeyboardMarkup(resize_keyboard=True)
+markup_for_sizes_after_final.row(mini_size_btn)
 markup_for_sizes_after_final.row(small_size_btn)
 markup_for_sizes_after_final.row(medium_size_btn)
 markup_for_sizes_after_final.row(big_size_btn)

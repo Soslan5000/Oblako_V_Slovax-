@@ -3,7 +3,7 @@ from string import Template
 def getRegData(user, title, name):
     t = Template(
         '$title*$name*'
-        ' \nФИО: *$FIO* \nСтрана: *$country*'
+        '\nФИО: *$FIO* \nСтрана: *$country*'
         '\nГород: *$city* \nАдрес: *$adres*'
         '\nИндекс: *$index* \nРазмер бокса: *$size*'
         '\nЛюбимый автор: *$autor* \nЛюбимый фильм: *$film*'

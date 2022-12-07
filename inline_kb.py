@@ -27,6 +27,6 @@ keyboard_for_faq.add(btn)
 
 keyboard_for_end = InlineKeyboardMarkup()
 btn = InlineKeyboardButton(text='Отзывы', url='https://vk.com/topic-205226603_48064476')
-btn1 = InlineKeyboardButton(text='Телега исполнителя', url='https://t.me/Engry_nps')
+btn1 = InlineKeyboardButton(text='Телега оператора', url='https://t.me/Engry_nps')
 keyboard_for_end.add(btn)
 keyboard_for_end.add(btn1)

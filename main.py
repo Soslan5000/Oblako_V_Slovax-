@@ -1,4 +1,4 @@
-from config import TG_TOKEN
+from config import TG_TOKEN, TG_TOKEN_TEST
 from config import TG_ANKETS_CHANNEL_ID
 import telebot
 from telebot import types
@@ -6,7 +6,7 @@ from murkups import markup_with_menu, markup_for_choise_form, markup_for_sizes, 
     markup_for_county, markup_for_transitions_with_next, markup_for_transitions_with_pay, \
     markup_for_choise_form_after_final, markup_with_back, markup_for_commands
 from murkups import menu_btn, back_btn, continue_btn, autor_btn, film_btn, serial_btn, painter_btn, poet_btn, \
-    music_btn, game_btn, color_btn, book_btn, small_size_btn, medium_size_btn, big_size_btn, \
+    music_btn, game_btn, color_btn, book_btn, mini_size_btn, small_size_btn, medium_size_btn, big_size_btn, \
     return_btn, russia_btn, other_country_btn, edit_form_btn, edit_size_btn, pay_btn
 from inline_kb import keyboard_for_links, keyboard_for_comment, keyboard_for_faq, keyboard_for_end
 from messages import message_for_menu, message_for_about, message_for_links, \
@@ -14,11 +14,11 @@ from messages import message_for_menu, message_for_about, message_for_links, \
     message_for_more_info, message_for_except, message_for_notice
 from classes import User
 from other_functions import getRegData
+import json
 
 
 bot = telebot.TeleBot(TG_TOKEN)
 user_dict = {}
-
 
 def send_menu(message):
     bot.send_message(message.chat.id,
@@ -76,7 +76,7 @@ def menu(message):
                      message_for_except,
                      reply_markup=markup_with_menu)
 
-
+'''
 @bot.message_handler(commands=['faq'])
 def FAQ(message):
     try:
@@ -89,7 +89,7 @@ def FAQ(message):
         bot.register_next_step_handler(msg, menu)
     except Exception as e:
         bot.reply_to(message, message_for_except, reply_markup=markup_with_menu)
-
+'''
 
 def menu(message):
     try:
@@ -138,7 +138,7 @@ def choise_form(message):
         text = message.text
         chat_id = message.chat.id
         user = user_dict[chat_id]
-        if text == big_size_btn or text == medium_size_btn or text == small_size_btn:
+        if text == mini_size_btn or text == big_size_btn or text == medium_size_btn or text == small_size_btn:
             user.size = message.text
             msg = bot.send_message(message.chat.id,
                                    'Выберите раздел и дайте нам знать, что Вам нравится больше всего',
@@ -767,6 +767,10 @@ def pay_step(message):
                     bot.send_message(chat_id,
                                      'Заказ маленького бокса по России - 2900 рублей',
                                      parse_mode="Markdown")
+                elif user.size == mini_size_btn:
+                    bot.send_message(chat_id,
+                                     'Заказ мини-бокса бокса по России - 1900 рублей',
+                                     parse_mode="Markdown")
             else:
                 if user.size == big_size_btn:
                     bot.send_message(chat_id,
@@ -780,10 +784,14 @@ def pay_step(message):
                     bot.send_message(chat_id,
                                      'Заказ маленького бокса по миру - 4500 рублей',
                                      parse_mode="Markdown")
+                elif user.size == mini_size_btn:
+                    bot.send_message(chat_id,
+                                     'Заказ мини-бокса по России - 3500 рублей',
+                                      parse_mode="Markdown")
             msg = bot.send_message(chat_id,
                                    'Пожалуйста, приложите скриншот или документ оплаты,\n'
                                    'чтобы мы могли приступить к выполнению заказа\n'
-                                   'Номер карты: 4276600042956215\n'
+                                   'Номер карты: 4279380685097596\n'
                                    'ФИО: Тинатин Георгиевна',
                                    reply_markup=markup_with_back)
             bot.register_next_step_handler(msg, ready_step)
@@ -824,7 +832,7 @@ def edit_size(message):
         chat_id = message.chat.id
         user = user_dict[chat_id]
         text = message.text
-        if text == big_size_btn or text == medium_size_btn or text == small_size_btn:
+        if text == mini_size_btn or text == big_size_btn or text == medium_size_btn or text == small_size_btn:
             user.size = text
             user.rele = True
             msg = bot.send_message(chat_id,
@@ -868,6 +876,10 @@ def ready_step(message):
                 bot.send_message(to_chat_id,
                                  'Заказ маленького бокса по России - 2900 рублей',
                                  parse_mode="Markdown")
+            elif user.size == mini_size_btn:
+                bot.send_message(to_chat_id,
+                                 'Заказ мини-бокса по России - 1900 рублей',
+                                 parse_mode="Markdown")
         else:
             if user.size == big_size_btn:
                 bot.send_message(to_chat_id,
@@ -880,6 +892,10 @@ def ready_step(message):
             elif user.size == small_size_btn:
                 bot.send_message(to_chat_id,
                                  'Заказ маленького бокса по миру - 4500 рублей',
+                                 parse_mode="Markdown")
+            elif user.size == mini_size_btn:
+                bot.send_message(to_chat_id,
+                                 'Заказ мини-бокса по России - 3500 рублей',
                                  parse_mode="Markdown")
         if message.from_user.username is None:
             bot.send_message(to_chat_id,
@@ -916,7 +932,7 @@ def ready_step(message):
         msg = bot.send_message(chat_id,
                                'Необходимо приложить скриншот или документ с оплатой\n'
                                'чтобы мы могли приступить к выполнению заказа\n'
-                               'Номер карты: 4276600042956215\n'
+                               'Номер карты: 4279380685097596\n'
                                'ФИО: Тинатин Георгиевна',
                                reply_markup=markup_with_back)
         bot.register_next_step_handler(msg, ready_step)
